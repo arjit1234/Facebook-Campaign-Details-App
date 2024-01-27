@@ -9,11 +9,13 @@ const REDIRECT_URI = 'https://977e-125-99-206-196.ngrok-free.app/auth/facebook/c
 
 router.get('/login', (req, res) => {
     const url = `https://www.facebook.com/v19.0/dialog/oauth?client_id=${APP_ID}&redirect_uri=${REDIRECT_URI}&scope=email`;
+    console.log(url)
     res.redirect(url);
   });
 
   router.get('/auth/facebook/callback', async (req, res) => {
     const { code } = req.query;
+    console.log(code)
   
     try {
      
@@ -26,8 +28,9 @@ router.get('/login', (req, res) => {
   
       
       console.log(profile)
+      return res.status(200).json({"access_token": access_token})
   
-      res.redirect('/');
+      // res.redirect('/');
     } catch (error) {
       console.error('Error:', error);
       res.redirect('/login');

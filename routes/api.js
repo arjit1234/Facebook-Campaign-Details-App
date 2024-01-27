@@ -5,11 +5,16 @@ const accessToken = 'EAAHRvxMtMJYBAJPT5Qp0S4Ioj7LQAzkIpDjthatC3fK3p89DNH6FwYdYg0
 
 router.get("/fetch/adaccounts", (req,res) => {
     try{
+        console.log(accessToken);
         let adaccountsUrl = `https://graph.facebook.com/v18.0/me/adaccounts?fields=name&access_token=${accessToken}`;
         
         fetchData(adaccountsUrl).then(res1 => {
-            return res.render('adaccount',{res:res1});
-            // return res.status(200).json(res1);
+            if(res1.error){
+                return res.status(500).json(res1);
+            }
+            else{
+                return res.render('adaccount',{res:res1});
+            }
         });
     }catch(error){  
         console.log(error)
@@ -22,7 +27,12 @@ router.get("/fetch/campaign/:adaccount_id", (req,res) => {
 
         fetchData(campaingsUrl).then(res1 => {
             // return res.render('campaign',{res:res1, adaccountName: adaccount_name});
-            return res.status(200).json(res1);
+            if(res1.error){
+                return res.status(500).json(res1);
+            }
+            else{
+                return res.status(200).json(res1);
+            }
         });
     }catch(error){  
         console.log(error)
@@ -34,7 +44,12 @@ router.get("/fetch/adsets/:campaign_id", (req,res) =>{
 
         fetchData(adsetsUrl).then(res1 => {
             // return res.render('adset',{res:res1, campaignName : campaign_name});
-            return res.status(200).json(res1);
+            if(res1.error){
+                return res.status(500).json(res1);
+            }
+            else{
+                return res.status(200).json(res1);
+            }
 
         })
 
@@ -48,7 +63,12 @@ router.get("/fetch/insights/:adset_id", (req,res) =>{
 
         fetchData(insightsUrl).then(res1 => {
             // return res.render('insights',{res:res1, adsetName : adset_name});
-            return res.status(200).json(res1);
+            if(res1.error){
+                return res.status(500).json(res1);
+            }
+            else{
+                return res.status(200).json(res1);
+            }
 
         })
     }catch(error){

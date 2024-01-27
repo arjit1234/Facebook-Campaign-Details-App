@@ -18,7 +18,9 @@ async function getadAccount(apiUrl){
         
         return response.data.data;
     }catch(error){
-        console.error('Error fetching data:', error.response ? error.response.data : error.message);
+        // console.error('Error fetching data:', error.response ? error.response.data : error.message);
+        console.error('Error fetching data:', error.response.data.error.message);
+        return {"error": error.response.data.error.message};
     }
 }
 // axios.get(apiUrl)
