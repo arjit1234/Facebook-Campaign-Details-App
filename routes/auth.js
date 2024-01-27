@@ -5,11 +5,10 @@ const session = require('express-session');
 const app = express();
 const APP_ID = '499155708696600';
 const APP_SECRET = '40c7b6d557bb98ba7fb33ac46d37629d';
-const REDIRECT_URI = 'https://977e-125-99-206-196.ngrok-free.app/auth/facebook/callback';
+const REDIRECT_URI = 'https://a2c8-27-6-246-185.ngrok-free.app/api/fetch/adaccounts';
 
 router.get('/login', (req, res) => {
     const url = `https://www.facebook.com/v19.0/dialog/oauth?client_id=${APP_ID}&redirect_uri=${REDIRECT_URI}&scope=email`;
-    console.log(url)
     res.redirect(url);
   });
 
@@ -30,17 +29,12 @@ router.get('/login', (req, res) => {
       console.log(profile)
       return res.status(200).json({"access_token": access_token})
   
-      // res.redirect('/');
     } catch (error) {
       console.error('Error:', error);
       res.redirect('/login');
     }
   });
-  app.use(session({
-    secret: '40c7b6d557bb98ba7fb33ac46d37629d',
-    resave: false,
-    saveUninitialized: true
-  }));
+
   
   // Logout route
   router.get('/logout', (req, res) => {
